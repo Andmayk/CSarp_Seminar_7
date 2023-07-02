@@ -34,7 +34,7 @@ void PrintMatrix(int[,] matrixForPrint)
     {
         for (int j = 0; j < matrixForPrint.GetLength(1); j++)
         {
-            System.Console.Write(AddSpace(matrixForPrint[i, j],4) + "\t");
+            System.Console.Write(matrixForPrint[i, j] + "  ");
         }
         System.Console.WriteLine();
     }
@@ -42,9 +42,10 @@ void PrintMatrix(int[,] matrixForPrint)
 
 void PrintMatrixElementFromRowColumn(int[,] matrixForPrint, int row, int col)
 {
-    if  (row < matrixForPrint.GetLength(0)&&col < matrixForPrint.GetLength(1))
+    if (row < matrixForPrint.GetLength(0) && col < matrixForPrint.GetLength(1))
     {
-            System.Console.WriteLine(matrixForPrint[row, col],4);
+        System.Console.Write($"элемента с и ндексами {row}, {col} -> ");
+        System.Console.WriteLine(matrixForPrint[row, col]);
     }
     else
     {
@@ -52,13 +53,11 @@ void PrintMatrixElementFromRowColumn(int[,] matrixForPrint, int row, int col)
     }
 }
 
-
-
 ///=====================================
 
-int row = ReadInt("Введите номер строки: ");
-int col = ReadInt("Введите номер колонки: ");
-double[,] matrix = FillMatrix(3, 4, 0, 10);
+int row = ReadInt("Введите ндекс строки: ");
+int col = ReadInt("Введите ндекс колонки: ");
+int[,] matrix = FillMatrix(4, 5, 0, 9);
 PrintMatrix(matrix);
 
-PrintMatrixElementFromRowColumn(matrixForPrint, row, col);
+PrintMatrixElementFromRowColumn(matrix, row, col);
