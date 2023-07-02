@@ -20,18 +20,26 @@ double[,] FillMatrix(int row, int col, int rangLeft, int rangRight)
     {
         for (int j = 0; j < tempMatrix.GetLength(1); j++)
         {
-            tempMatrix[i, j] = Math.Round(rand.Next(rangLeft, rangRight)+ rand.NextDouble(),2);
+            tempMatrix[i, j] = Math.Round(rand.Next(rangLeft, rangRight) + rand.NextDouble(), 2);
         }
     }
     return tempMatrix;
 }
 
-string AddSpace (double number, int wide)  //добавим пробелы для выраниванич чисел в колонках по правой стороне
+string AddSpace(double number, int wide)  //добавим пробелы для выравнивания чисел в колонках по правому краю
 {
-    string resul=Convert.ToString(number);
+    string resul = Convert.ToString(number);
+    if (number == Math.Round(number, 0)) // если число целое
+    {
+        resul = resul + ",00";          // добавим дав ноля после запятой
+    }
+    else if (number == Math.Round(number, 1)) // если число с 1 знаком после запятой
+    {
+        resul = resul + "0";                // добавим ноль
+    }
     while (resul.Length < wide)
     {
-        resul=" "+resul;
+        resul = " " + resul;         // добавим пробел в начало строки 
     }
     return resul;
 }
@@ -42,7 +50,7 @@ void PrintMatrix(double[,] matrixForPrint)
     {
         for (int j = 0; j < matrixForPrint.GetLength(1); j++)
         {
-            System.Console.Write(AddSpace(matrixForPrint[i, j],6) + "\t");
+            System.Console.Write(AddSpace(matrixForPrint[i, j], 5) + "\t");
         }
         System.Console.WriteLine();
     }
@@ -50,5 +58,5 @@ void PrintMatrix(double[,] matrixForPrint)
 ///=========================================================
 int rows = ReadInt("Введите количество строк: ");
 int cols = ReadInt("Введите количество стобцов: ");
-double[,] matrix = FillMatrix(rows, cols, 0, 100);
+double[,] matrix = FillMatrix(rows, cols, -10, 10);
 PrintMatrix(matrix);
