@@ -7,12 +7,6 @@
 // 8 4 2 4
 //  1 7 -> такого числа в массиве нет
 
-int ReadInt(string message) // запрос целого числа с выводом сообщения
-{
-    Console.Write(message + " ");
-    return Convert.ToInt32(Console.ReadLine());
-}
-
 int[,] FillMatrix(int row, int col, int leftRange, int rightRange)
 {
     int[,] tempMatrix = new int[row, col];
@@ -30,34 +24,48 @@ int[,] FillMatrix(int row, int col, int leftRange, int rightRange)
 
 void PrintMatrix(int[,] matrixForPrint)
 {
+    System.Console.Write("    ");
+    for (int j = 0; j < matrixForPrint.GetLength(1); j++) System.Console.Write("[" + j + "]");
+    System.Console.WriteLine();
     for (int i = 0; i < matrixForPrint.GetLength(0); i++)
     {
+        System.Console.Write("[" + i + "] ");
         for (int j = 0; j < matrixForPrint.GetLength(1); j++)
         {
-            System.Console.Write(matrixForPrint[i, j] + "  ");
+            System.Console.Write(" "+matrixForPrint[i, j] + " ");
         }
         System.Console.WriteLine();
     }
 }
 
-void PrintMatrixElementFromRowColumn(int[,] matrixForPrint, int row, int col)
+void PrintMatrixElementFromRowColumn(int[,] matrixForSearch, int row, int col)
 {
-    if (row < matrixForPrint.GetLength(0) && col < matrixForPrint.GetLength(1))
+    if (row < matrixForSearch.GetLength(0) && col < matrixForSearch.GetLength(1))
     {
-        System.Console.Write($"элемента с и ндексами {row}, {col} -> ");
-        System.Console.WriteLine(matrixForPrint[row, col]);
+        System.Console.Write($"элемент с индексами {row}, {col} -> ");
+        System.Console.WriteLine(matrixForSearch[row, col]);
     }
     else
     {
         System.Console.WriteLine("элемента с такими индексами в массиве нет");
     }
 }
+int[] InputArray(string message, int size)
+{
+    Console.Write(message);
+    int[] inputArr = Array.ConvertAll(Console.ReadLine()!.Split(" ", size), int.Parse);
+    return inputArr;
+}
 
 ///=====================================
 
-int row = ReadInt("Введите ндекс строки: ");
-int col = ReadInt("Введите ндекс колонки: ");
-int[,] matrix = FillMatrix(4, 5, 0, 9);
-PrintMatrix(matrix);
+int[] elementRowCol = InputArray("Введите индексы элемента массива через пробел - строка колонка: ", 2);
 
-PrintMatrixElementFromRowColumn(matrix, row, col);
+int rows = 4;
+int cols = 5;
+int minLeftRange = 0;
+int maxRightRange = 9;
+
+int[,] matrix = FillMatrix(rows, cols, minLeftRange, maxRightRange);
+PrintMatrix(matrix);
+PrintMatrixElementFromRowColumn(matrix, elementRowCol[0], elementRowCol[1]);
